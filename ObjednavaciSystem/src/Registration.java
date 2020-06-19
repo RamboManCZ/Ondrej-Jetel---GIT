@@ -61,13 +61,26 @@ public class Registration implements ActionListener {
 
 	public void registr() {
 		try {
-			File f = new File("users\\" + txtUser.getText() + ".txt");
-			if (f.exists() == true) {
+			File f = new File("users\\" + txtUser.getText() + ".txt"); //toto by opět fungovalo pouze pro Windows
+			File f1 = new File("users//" + txtUser.getText() + ".txt");//@author Jakub Titěra, opět jsem přidal Linux cestu
+			if (f.exists() == true || f1.exists() == true) {
 				labelErr.setForeground(Color.RED);
 				labelErr.setText("USERNAME ALREADY EXIST");
 			} else {
-
-				f.createNewFile();
+				
+				/**@author Jakub Titěra
+				 * Přidal jsem detekci OS zařízení, program podle toho vytvoří soubor
+				 */
+				String os = System.getProperty("os.name").toLowerCase();
+				if(os.contains("win")) {
+					f.createNewFile();
+				}else {
+					if(os.contains("osx")||os.contains("nix")||os.contains("aix")||os.contains("nux")) {
+						f1.createNewFile();
+					}
+				}
+				
+				
 				labelErr.setForeground(Color.GREEN);
 				labelErr.setText("SUCCESFULL");
 			}

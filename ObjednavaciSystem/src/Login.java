@@ -63,8 +63,9 @@ public class Login implements ActionListener {
 				String user = usernameField.getText();
 				@SuppressWarnings("deprecation")
 				String pass = passwordField.getText();
-				File f = new File("users\\" + user + ".txt");
-				if (f.exists() == true) {
+				File f = new File("users\\" + user + ".txt");//toto by fungovalo pouze na Windows
+				File f1 = new File("users//" + user + ".txt");//přidal jsem cestu pro linux @author Jakub Titěra
+				if (f.exists() == true || f1.exists() == true) {
 					@SuppressWarnings("resource")
 					BufferedReader bfr = new BufferedReader(new FileReader(f));
 					String password = bfr.readLine();
